@@ -8,6 +8,9 @@ namespace FileSearch
 {
     public class DirectoryNode : TreeNode
     {
-
+        public DirectoryNode()
+        {
+            _items = new System.Collections.ObjectModel.ObservableCollection<TreeNode>();
+        }
     }
 }
