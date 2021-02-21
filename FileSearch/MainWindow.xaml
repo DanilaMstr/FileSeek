@@ -8,11 +8,14 @@
         Title="MainWindow" Height="450" Width="800">
     <Grid>
         <TreeView ItemsSource="{Binding TreeNodes}">
-            <TreeView.ItemTemplate>
-                <HierarchicalDataTemplate ItemsSource="{Binding Items}">
+            <TreeView.Resources>
+                <HierarchicalDataTemplate DataType="{x:Type local:FileNode}" ItemsSource="{Binding Items}">
                     <TextBlock Text="{Binding NodeName}" />
                 </HierarchicalDataTemplate>
-            </TreeView.ItemTemplate>
+                <HierarchicalDataTemplate DataType="{x:Type local:DirectoryNode}" ItemsSource="{Binding Items}">
+                    <TextBlock Text="{Binding NodeName,StringFormat=[{0}]}" />
+                </HierarchicalDataTemplate>
+            </TreeView.Resources>
         </TreeView>
     </Grid>
 </Window>
