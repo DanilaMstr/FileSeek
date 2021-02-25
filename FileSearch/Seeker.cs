@@ -13,8 +13,7 @@ namespace FileSearch
     public class Seeker : NotifyPropertyChanged
     {
         private Thread _thread;
-        //private ManualResetEventSlim _okayToContinue = new ManualResetEventSlim(false);
-        public bool _okayToContinue = true;
+        private ManualResetEventSlim _okayToContinue = new ManualResetEventSlim(false);
         private uint _countFound = 0;
         private uint _allCountFound = 0;
         private string _format = "[a-zA-z]";
@@ -49,7 +48,6 @@ namespace FileSearch
                 => Seeking())
             { IsBackground = true };
             _thread.Start();
-            //Seeking();
         }
 
         private void Restart()
@@ -63,59 +61,8 @@ namespace FileSearch
 
         private void Seeking()
         {
-            //_okayToContinue.Wait();
-            //while (CheckStop())
-            //{
-            //    _currDirectory = _nodes.Pop();
-            //    CheckDirectorys();
-            //    CheckFiles();
-            //}
-
             CheckDirectoris(_currDirectory);
         }
-
-        //private void CheckFiles()
-        //{
-        //    try
-        //    {
-        //        var currDirInfo = new DirectoryInfo(_currDirectory.NodeFullName);
-        //        foreach (var file in currDirInfo.GetFiles())
-        //        {
-        //            _allCountFound++;
-        //            if (Regex.IsMatch(file.Name, _format))
-        //            {
-        //                _countFound++;
-        //                App.Current.Dispatcher.Invoke((Action)delegate 
-        //                {
-        //                    _currDirectory.Items.Add(new FileNode { NodeName = file.Name });
-        //                });
-        //            }
-        //        }
-        //    }
-        //    catch (UnauthorizedAccessException)
-        //    {
-        //    }
-        //}
-
-        //private void CheckDirectorys()
-        //{
-        //    try
-        //    {
-        //        var currDirInfo = new DirectoryInfo(_currDirectory.NodeFullName);
-        //        foreach (var dir in currDirInfo.GetDirectories())
-        //        {
-        //            var newDir = new DirectoryNode { NodeName = dir.Name, NodeFullName = dir.FullName };
-        //            App.Current.Dispatcher.Invoke((Action)delegate
-        //            {
-        //                 _currDirectory.Items.Add(newDir);
-        //            });
-        //            _nodes.Push(newDir);
-        //        }
-        //    }
-        //    catch (UnauthorizedAccessException)
-        //    {
-        //    }
-        //}
 
         private void CheckDirectoris(DirectoryNode directory)
         {
@@ -164,7 +111,5 @@ namespace FileSearch
             }
             return hasFiles;
         }
-
-        //private bool CheckStop() => _nodes.Count > 0;
     }
 }
