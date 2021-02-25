@@ -32,8 +32,8 @@ namespace FileSearch
             //seeker.Seek();
 
             seeker = new Seeker();
-            seeker.Format = "[a-zA-Z0-9]+.dll";
-            seeker.StartDirectory = @"D:\Qt\Tools\QtCreator";
+            seeker.Format = "[a-zA-Z0-9]+.txt";
+            seeker.StartDirectory = @"C:\Test";
             FolderView.ItemsSource = seeker.treeNodes;
             seeker.Seek();
         }

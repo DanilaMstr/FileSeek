@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace FileSearch
 {
-    public class NotifyPropertyChanged : INotifyPropertyChanged
+    public abstract class NotifyPropertyChanged : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)

@@ -64,58 +64,107 @@ namespace FileSearch
         private void Seeking()
         {
             //_okayToContinue.Wait();
-            while (CheckStop())
-            {
-                _currDirectory = _nodes.Pop();
-                CheckDirectorys();
-                CheckFiles();
-            }
+            //while (CheckStop())
+            //{
+            //    _currDirectory = _nodes.Pop();
+            //    CheckDirectorys();
+            //    CheckFiles();
+            //}
 
+            CheckDirectoris(_currDirectory);
         }
 
-        private void CheckFiles()
+        //private void CheckFiles()
+        //{
+        //    try
+        //    {
+        //        var currDirInfo = new DirectoryInfo(_currDirectory.NodeFullName);
+        //        foreach (var file in currDirInfo.GetFiles())
+        //        {
+        //            _allCountFound++;
+        //            if (Regex.IsMatch(file.Name, _format))
+        //            {
+        //                _countFound++;
+        //                App.Current.Dispatcher.Invoke((Action)delegate 
+        //                {
+        //                    _currDirectory.Items.Add(new FileNode { NodeName = file.Name });
+        //                });
+        //            }
+        //        }
+        //    }
+        //    catch (UnauthorizedAccessException)
+        //    {
+        //    }
+        //}
+
+        //private void CheckDirectorys()
+        //{
+        //    try
+        //    {
+        //        var currDirInfo = new DirectoryInfo(_currDirectory.NodeFullName);
+        //        foreach (var dir in currDirInfo.GetDirectories())
+        //        {
+        //            var newDir = new DirectoryNode { NodeName = dir.Name, NodeFullName = dir.FullName };
+        //            App.Current.Dispatcher.Invoke((Action)delegate
+        //            {
+        //                 _currDirectory.Items.Add(newDir);
+        //            });
+        //            _nodes.Push(newDir);
+        //        }
+        //    }
+        //    catch (UnauthorizedAccessException)
+        //    {
+        //    }
+        //}
+
+        private void CheckDirectoris(DirectoryNode directory)
         {
             try
             {
-                var currDirInfo = new DirectoryInfo(_currDirectory.NodeFullName);
+                bool hasFile = CheckFilesOnDir(directory);
+                var dirInfo = new DirectoryInfo(directory.NodeFullName);
+                foreach (var dir in dirInfo.GetDirectories())
+                {
+                    var newDir = new DirectoryNode { NodeName = dir.Name, NodeFullName = dir.FullName };
+                    CheckDirectoris(newDir);
+                    if (newDir.HasFile)
+                        App.Current.Dispatcher.Invoke((Action)delegate
+                        {
+                            directory.Items.Add(newDir);
+                        });
+                }
+            }
+            catch (UnauthorizedAccessException)
+            {
+            }
+        }
+
+        private bool CheckFilesOnDir(DirectoryNode directory)
+        {
+            bool hasFiles = false;
+            try
+            {
+                var currDirInfo = new DirectoryInfo(directory.NodeFullName);
                 foreach (var file in currDirInfo.GetFiles())
                 {
                     _allCountFound++;
                     if (Regex.IsMatch(file.Name, _format))
                     {
                         _countFound++;
-                        App.Current.Dispatcher.Invoke((Action)delegate 
+                        App.Current.Dispatcher.Invoke((Action)delegate
                         {
-                            _currDirectory.Items.Add(new FileNode { NodeName = file.Name });
+                            directory.Items.Add(new FileNode { NodeName = file.Name });
                         });
+                        hasFiles = true;
                     }
                 }
             }
             catch (UnauthorizedAccessException)
             {
             }
+            return hasFiles;
         }
 
-        private void CheckDirectorys()
-        {
-            try
-            {
-                var currDirInfo = new DirectoryInfo(_currDirectory.NodeFullName);
-                foreach (var dir in currDirInfo.GetDirectories())
-                {
-                    var newDir = new DirectoryNode { NodeName = dir.Name, NodeFullName = dir.FullName };
-                    App.Current.Dispatcher.Invoke((Action)delegate
-                    { 
-                        _currDirectory.Items.Add(newDir); 
-                    });
-                    _nodes.Push(newDir);
-                }
-            }
-            catch (UnauthorizedAccessException)
-            {
-            }
-        }
-
-        private bool CheckStop() => _nodes.Count > 0;
+        //private bool CheckStop() => _nodes.Count > 0;
     }
 }

@@ -5,17 +5,60 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:FileSearch"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="Seeker" Height="900" Width="880" Background="#FFBBD9DE" MinWidth="415" MinHeight="553">
     <Grid>
-        <TreeView ItemsSource="{Binding TreeNodes}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="10*"/>
+            <ColumnDefinition Width="145*"/>
+            <ColumnDefinition Width="5*"/>
+            <ColumnDefinition Width="5*"/>
+            <ColumnDefinition Width="150*"/>
+            <ColumnDefinition Width="5*"/>
+            <ColumnDefinition Width="5*"/>
+            <ColumnDefinition Width="50*"/>
+            <ColumnDefinition Width="5*"/>
+            <ColumnDefinition Width="5*"/>
+            <ColumnDefinition Width="45*"/>
+            <ColumnDefinition Width="7*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20*"/>
+            <RowDefinition Height="20*"/>
+            <RowDefinition Height="780*"/>
+            <RowDefinition Height="51*"/>
+        </Grid.RowDefinitions>
+        <TreeView Name="FolderView" ItemsSource="{Binding TreeNodes}" Margin="0,20,0,0" Grid.Row="2" Grid.ColumnSpan="12" Grid.RowSpan="1">
             <TreeView.Resources>
-                <HierarchicalDataTemplate DataType="{x:Type local:FileNode}" ItemsSource="{Binding Items}">
-                    <TextBlock Text="{Binding NodeName}" />
+                <Style TargetType="{x:Type TreeViewItem}">
+                    <Setter Property="IsExpanded" Value="True" />
+                </Style>
+                <HierarchicalDataTemplate 
+                    DataType="{x:Type local:FileNode}" 
+                    ItemsSource="{Binding Items}">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Height="16" Margin="0,1,3,1" 
+                               Source="\Images\file.png" 
+                               Width="16" />
+                        <TextBlock Text="{Binding NodeName}" />
+                    </StackPanel>
                 </HierarchicalDataTemplate>
-                <HierarchicalDataTemplate DataType="{x:Type local:DirectoryNode}" ItemsSource="{Binding Items}">
-                    <TextBlock Text="{Binding NodeName,StringFormat=[{0}]}" />
+                <HierarchicalDataTemplate 
+                    DataType="{x:Type local:DirectoryNode}" 
+                    ItemsSource="{Binding Items}">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Height="16" Margin="0,1,3,1"
+                               Source="\Images\folder-closed.png" 
+                               Width="16" />
+                        <TextBlock 
+                            VerticalAlignment="Center" 
+                            Text="{Binding NodeName}" />
+                    </StackPanel>
                 </HierarchicalDataTemplate>
             </TreeView.Resources>
         </TreeView>
+        <Button Name ="Seek_Button" Content="Поиск" Grid.Column="7" HorizontalAlignment="Left" Margin="10,0,0,0" Grid.Row="1" VerticalAlignment="Bottom" Width="90" Height="20" Background="#FFA2A2A2" Click="Seek_Button_Click"/>
+        <Button Name ="Stop_Button" Content="Остановить" Grid.Column="10" HorizontalAlignment="Left" Grid.Row="1" VerticalAlignment="Top" Width="90" Height="20" Background="#FFA2A2A2"/>
+        <TextBox Name ="tb_filter"  Grid.Column="4" HorizontalAlignment="Left" Height="20" TextWrapping="Wrap" VerticalAlignment="Top" Width="300" Grid.Row="1"/>
+        <TextBox Name ="tb_start_dir"  Grid.Column="1" HorizontalAlignment="Left" Height="20" TextWrapping="Wrap" VerticalAlignment="Top" Width="290" Grid.Row="1"/>
     </Grid>
 </Window>

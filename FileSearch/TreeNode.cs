@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 
 namespace FileSearch
 {
-    public class TreeNode : NotifyPropertyChanged
+    public abstract class TreeNode : NotifyPropertyChanged
     {
-        private string _nodeName;
-        private ObservableCollection<TreeNode> _items;
+        protected string _nodeName;
+        protected ObservableCollection<TreeNode> _items;
 
         public string NodeName
         {
