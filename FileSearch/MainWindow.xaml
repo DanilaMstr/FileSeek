@@ -5,14 +5,16 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:FileSearch"
         mc:Ignorable="d"
-        Title="Seeker" Height="900" Width="880" Background="#FFBBD9DE" MinWidth="415" MinHeight="553">
+        Title="Seeker" Height="900" Width="880" Background="#FFBBD9DE" MinWidth="415" MinHeight="553"
+        >
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="10*"/>
             <ColumnDefinition Width="145*"/>
             <ColumnDefinition Width="5*"/>
             <ColumnDefinition Width="5*"/>
-            <ColumnDefinition Width="150*"/>
+            <ColumnDefinition Width="75*"/>
+            <ColumnDefinition Width="75*"/>
             <ColumnDefinition Width="5*"/>
             <ColumnDefinition Width="5*"/>
             <ColumnDefinition Width="50*"/>
@@ -22,12 +24,14 @@
             <ColumnDefinition Width="7*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
+            <RowDefinition Height="10*"/>
+            <RowDefinition Height="40*"/>
+            <RowDefinition Height="770*"/>
             <RowDefinition Height="20*"/>
-            <RowDefinition Height="20*"/>
-            <RowDefinition Height="780*"/>
-            <RowDefinition Height="51*"/>
+            <RowDefinition Height="30*"/>
+            <RowDefinition/>
         </Grid.RowDefinitions>
-        <TreeView Name="FolderView" ItemsSource="{Binding TreeNodes}" Margin="0,20,0,0" Grid.Row="2" Grid.ColumnSpan="12" Grid.RowSpan="1">
+        <TreeView Name="FolderView" Margin="0,10,0,0" Grid.Row="2" Grid.ColumnSpan="13" Grid.RowSpan="1">
             <TreeView.Resources>
                 <Style TargetType="{x:Type TreeViewItem}">
                     <Setter Property="IsExpanded" Value="True" />
@@ -56,9 +60,17 @@
                 </HierarchicalDataTemplate>
             </TreeView.Resources>
         </TreeView>
-        <Button Name ="Seek_Button" Content="Поиск" Grid.Column="7" HorizontalAlignment="Left" Margin="10,0,0,0" Grid.Row="1" VerticalAlignment="Bottom" Width="90" Height="20" Background="#FFA2A2A2" Click="Seek_Button_Click"/>
-        <Button Name ="Stop_Button" Content="Остановить" Grid.Column="10" HorizontalAlignment="Left" Grid.Row="1" VerticalAlignment="Top" Width="90" Height="20" Background="#FFA2A2A2"/>
-        <TextBox Name ="tb_filter"  Grid.Column="4" HorizontalAlignment="Left" Height="20" TextWrapping="Wrap" VerticalAlignment="Top" Width="300" Grid.Row="1"/>
-        <TextBox Name ="tb_start_dir"  Grid.Column="1" HorizontalAlignment="Left" Height="20" TextWrapping="Wrap" VerticalAlignment="Top" Width="290" Grid.Row="1"/>
+        <Button Name ="Seek_Button" Content="Поиск" Grid.Column="8" HorizontalAlignment="Left" Margin="10,0,0,0" Grid.Row="1" VerticalAlignment="Bottom" Width="90" Height="40" Background="#FFA2A2A2" Click="Seek_Button_Click" RenderTransformOrigin="0.444,0.25"/>
+        <Button Name ="Stop_Button" Content="Остановить" Grid.Column="11" HorizontalAlignment="Left" Grid.Row="1" VerticalAlignment="Top" Width="90" Height="40" Background="#FFA2A2A2"/>
+        <TextBox Name ="tb_filter"  Grid.Column="4" HorizontalAlignment="Left" Height="40" TextWrapping="Wrap" VerticalAlignment="Top" Width="300" Grid.Row="1" Grid.ColumnSpan="2" FontSize="16"/>
+        <TextBox Name ="tb_start_dir"  Grid.Column="1" HorizontalAlignment="Left" Height="40" TextWrapping="Wrap" VerticalAlignment="Top" Width="290" Grid.Row="1" FontSize="16"/>
+        <TextBlock Grid.Column="1" HorizontalAlignment="Left" Margin="10,0,0,0" Grid.Row="3" TextWrapping="Wrap" Text="Current Directory :" VerticalAlignment="Top" Width="280" Cursor="Help" FontSize="16" Height="21" Grid.RowSpan="2"/>
+        <TextBlock Grid.Column="4" HorizontalAlignment="Left" Grid.Row="3" Grid.RowSpan="2" TextWrapping="Wrap" Text="Found : " VerticalAlignment="Top" Width="150" Height="21" FontSize="16" Cursor="Help"/>
+        <TextBlock Grid.Column="5" HorizontalAlignment="Left" Grid.Row="3" Grid.RowSpan="2" TextWrapping="Wrap" Text="All found : " VerticalAlignment="Top" Width="150" Height="21" FontSize="16" Cursor="Help"/>
+        <TextBlock Text="{Binding Path=Found, UpdateSourceTrigger=PropertyChanged}" Name ="tb_found" Grid.Column="4" HorizontalAlignment="Left" Margin="0,1,0,0" Grid.Row="4" Grid.RowSpan="2" TextWrapping="Wrap" VerticalAlignment="Top" Height="30" Width="150" FontSize="20"/>
+        <TextBlock Text="{Binding Path=AllFound, UpdateSourceTrigger=PropertyChanged}" Name ="tb_all_found" Grid.Column="5" HorizontalAlignment="Left" Margin="0,1,0,0" Grid.Row="4" TextWrapping="Wrap" VerticalAlignment="Top" RenderTransformOrigin="-0.612,0.313" Width="150" Height="29" FontSize="20"/>
+        <TextBlock Text="{Binding Path=CurrentDiretory, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1" HorizontalAlignment="Left" Margin="0,1,0,0" Grid.Row="4" TextWrapping="Wrap" VerticalAlignment="Top" Width="290" Height="29" FontSize="10"/>
+        <TextBlock Grid.Column="8" HorizontalAlignment="Left" Grid.Row="3" Grid.RowSpan="2" TextWrapping="Wrap" VerticalAlignment="Top" RenderTransformOrigin="0,0.312" Width="210" Grid.ColumnSpan="4" Height="21" FontSize="16"><Run Text="Spend time :"/><LineBreak/><Run/></TextBlock>
+        <TextBlock Grid.Column="8" HorizontalAlignment="Left" Margin="0,1,0,0" Grid.Row="4" TextWrapping="Wrap" VerticalAlignment="Top" Width="210" Grid.ColumnSpan="4" Height="29" FontSize="14"/>
     </Grid>
 </Window>

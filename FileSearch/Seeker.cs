@@ -16,14 +16,38 @@ namespace FileSearch
         private ManualResetEventSlim _okayToContinue = new ManualResetEventSlim(false);
         private uint _countFound = 0;
         private uint _allCountFound = 0;
-        private string _format = "[a-zA-z]";
+        private string _format = "[a-zA-z0-9]+";
         private DirectoryNode _startDirectory;
-        private DirectoryNode _currDirectory;
-        private Stack<DirectoryNode> _nodes;
+        private string _currDirectory = string.Empty;
         public ObservableCollection<TreeNode> treeNodes;
 
-        public uint Found { get => _countFound; }
-        public uint AllFound { get => _allCountFound; }
+        public uint Found 
+        { 
+            get => _countFound;
+            set
+            {
+                _countFound = value;
+                OnPropertyChanged("Found");
+            }
+        }
+        public uint AllFound 
+        { 
+            get => _allCountFound;
+            set 
+            {
+                _allCountFound = value;
+                OnPropertyChanged("AllFound");
+            }
+        }
+        public string CurrentDiretory
+        {
+            get => _currDirectory;
+            set
+            {
+                _currDirectory = value;
+                OnPropertyChanged("CurrentDiretory");
+            }
+        }
         public string Format { set => _format = value; }
         public string StartDirectory 
         { 
@@ -31,10 +55,8 @@ namespace FileSearch
             {
                 _startDirectory = new DirectoryNode { NodeName = value, NodeFullName = value };
                 treeNodes.Add(_startDirectory);
-                _currDirectory = _startDirectory;
             }
         }
-        public string CurrentDirectory { get => _currDirectory.NodeName; }
 
         public Seeker() 
         {
@@ -52,16 +74,15 @@ namespace FileSearch
 
         private void Restart()
         {
-            _nodes = new Stack<DirectoryNode>();
-            _currDirectory = _startDirectory;
-            _nodes.Push(_currDirectory);
+            if (_thread != null)
+                _thread.Abort();
             _countFound = 0;
             _allCountFound = 0;
         }
 
         private void Seeking()
         {
-            CheckDirectoris(_currDirectory);
+            CheckDirectoris(_startDirectory);
         }
 
         private void CheckDirectoris(DirectoryNode directory)
@@ -94,10 +115,11 @@ namespace FileSearch
                 var currDirInfo = new DirectoryInfo(directory.NodeFullName);
                 foreach (var file in currDirInfo.GetFiles())
                 {
-                    _allCountFound++;
+                    CurrentDiretory = file.DirectoryName;
+                    AllFound++;
                     if (Regex.IsMatch(file.Name, _format))
                     {
-                        _countFound++;
+                        Found++;
                         App.Current.Dispatcher.Invoke((Action)delegate
                         {
                             directory.Items.Add(new FileNode { NodeName = file.Name });
@@ -111,5 +133,8 @@ namespace FileSearch
             }
             return hasFiles;
         }
+
+        public void AbortSeek() => _thread.Abort();
+        public bool ThreadSeekerIsExist() => _thread != null;
     }
 }

@@ -58,6 +58,7 @@
     <Compile Include="DirectoryNode.cs" />
     <Compile Include="FileNode.cs" />
     <Compile Include="Seeker.cs" />
+    <Compile Include="SeekStatistics.cs" />
     <Compile Include="TreeNode.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>

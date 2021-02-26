@@ -3,7 +3,6 @@ using System.IO;
 using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
-using System.IO;
 using System.ComponentModel;
 using System;
 
@@ -15,7 +14,7 @@ namespace FileSearch
     public partial class MainWindow : Window
     {
         private Seeker seeker = new Seeker();
-        private string configFileName = "conf.txt";
+        private const string configFileName = "conf.txt";
 
         public MainWindow()
         {
@@ -25,11 +24,14 @@ namespace FileSearch
 
         private void Seek_Button_Click(object sender, RoutedEventArgs e)
         {
+            if (seeker.ThreadSeekerIsExist())
+                seeker.AbortSeek();
             seeker = new Seeker();
             seeker.Format = tb_filter.Text;
             seeker.StartDirectory = tb_start_dir.Text;
             FolderView.ItemsSource = seeker.treeNodes;
             seeker.Seek();
+            DataContext = seeker;
         }
 
         private void StartConfig()
@@ -72,7 +74,7 @@ namespace FileSearch
                     sw.WriteLine(tb_filter.Text);
                 }
             }
-
+            seeker.AbortSeek();
             base.OnClosing(e);
         }
     }
