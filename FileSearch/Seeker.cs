@@ -14,7 +14,8 @@ namespace FileSearch
     public class Seeker : NotifyPropertyChanged
     {
         private Thread _thread;
-        private ManualResetEventSlim _okayToContinue = new ManualResetEventSlim(false);
+        private ManualResetEventSlim _okayToContinue = new ManualResetEventSlim(true);
+        public bool Workih { get; set; } = true;
         private uint _countFound = 0;
         private uint _allCountFound = 0;
         private string _format = "[a-zA-z0-9]+";
@@ -102,6 +103,7 @@ namespace FileSearch
 
         private void CheckDirectoris(DirectoryNode directory)
         {
+            _okayToContinue.Wait(Timeout.Infinite);
             SpendTime = _stopWatch.Elapsed.ToString();
             try
             {
@@ -152,5 +154,8 @@ namespace FileSearch
 
         public void AbortSeek() => _thread.Abort();
         public bool ThreadSeekerIsExist() => _thread != null;
+
+        public void SeekingReset() => _okayToContinue.Reset();
+        public void SeekingSet() => _okayToContinue.Set();
     }
 }

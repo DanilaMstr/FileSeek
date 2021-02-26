@@ -6,6 +6,7 @@ using System.Windows.Controls;
 using System.ComponentModel;
 using System;
 using System.Diagnostics;
+using System.Threading.Tasks;
 
 namespace FileSearch
 {
@@ -16,6 +17,7 @@ namespace FileSearch
     {
         private Seeker seeker = new Seeker();
         private const string configFileName = "conf.txt";
+        private bool isStop = true;
 
         public MainWindow()
         {
@@ -25,6 +27,7 @@ namespace FileSearch
 
         private void Seek_Button_Click(object sender, RoutedEventArgs e)
         {
+            Stop_Button.Content = "Остановить";
             if (seeker.ThreadSeekerIsExist())
                 seeker.AbortSeek();
             seeker = new Seeker();
@@ -33,6 +36,24 @@ namespace FileSearch
             FolderView.ItemsSource = seeker.treeNodes;
             seeker.Seek();
             DataContext = seeker;
+        }
+
+        private void Stop_Button_Click(object sender, RoutedEventArgs e)
+        {
+            if (isStop)
+            {
+                seeker.SeekingReset();
+                Stop_Button.Content = "Возобновить";
+                isStop = false;
+            }
+            else
+            {
+                seeker.SeekingSet();
+                Stop_Button.Content = "Отсановить";
+                isStop = true;
+            }
+            //seeker.SeekingReset();
+
         }
 
         private void StartConfig()

@@ -61,7 +61,7 @@
             </TreeView.Resources>
         </TreeView>
         <Button Name ="Seek_Button" Content="Поиск" Grid.Column="8" HorizontalAlignment="Left" Margin="10,0,0,0" Grid.Row="1" VerticalAlignment="Bottom" Width="90" Height="40" Background="#FFA2A2A2" Click="Seek_Button_Click" RenderTransformOrigin="0.444,0.25"/>
-        <Button Name ="Stop_Button" Content="Остановить" Grid.Column="11" HorizontalAlignment="Left" Grid.Row="1" VerticalAlignment="Top" Width="90" Height="40" Background="#FFA2A2A2"/>
+        <Button x:Name ="Stop_Button" Content="Остановить" Grid.Column="11" HorizontalAlignment="Left" Grid.Row="1" VerticalAlignment="Bottom" Width="90" Height="40" Background="#FFA2A2A2" Click="Stop_Button_Click"/>
         <TextBox Name ="tb_filter"  Grid.Column="4" HorizontalAlignment="Left" Height="40" TextWrapping="Wrap" VerticalAlignment="Top" Width="300" Grid.Row="1" Grid.ColumnSpan="2" FontSize="16"/>
         <TextBox Name ="tb_start_dir"  Grid.Column="1" HorizontalAlignment="Left" Height="40" TextWrapping="Wrap" VerticalAlignment="Top" Width="290" Grid.Row="1" FontSize="16"/>
         <TextBlock Grid.Column="1" HorizontalAlignment="Left" Grid.Row="3" TextWrapping="Wrap" Text="Current Directory :" VerticalAlignment="Top" Width="290" Cursor="Help" FontSize="16" Height="21" Grid.RowSpan="2"/>
