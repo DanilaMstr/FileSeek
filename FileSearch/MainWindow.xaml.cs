@@ -27,15 +27,27 @@ namespace FileSearch
 
         private void Seek_Button_Click(object sender, RoutedEventArgs e)
         {
-            Stop_Button.Content = "Остановить";
-            if (seeker.ThreadSeekerIsExist())
-                seeker.AbortSeek();
-            seeker = new Seeker();
-            seeker.Format = tb_filter.Text;
-            seeker.StartDirectory = tb_start_dir.Text;
-            FolderView.ItemsSource = seeker.treeNodes;
-            seeker.Seek();
-            DataContext = seeker;
+            if (CheckDirExist())
+            {
+                Stop_Button.Content = "Остановить";
+                if (seeker.ThreadSeekerIsExist())
+                    seeker.AbortSeek();
+                seeker = new Seeker();
+                seeker.Format = tb_filter.Text;
+                seeker.StartDirectory = tb_start_dir.Text;
+                FolderView.ItemsSource = seeker.treeNodes;
+                seeker.Seek();
+                DataContext = seeker;
+            }
+            else
+                tb_start_dir.Text = " not exist";
+
+        }
+
+        private bool CheckDirExist()
+        {
+            var dirInfo = new DirectoryInfo(tb_start_dir.Text);
+            return dirInfo.Exists;
         }
 
         private void Stop_Button_Click(object sender, RoutedEventArgs e)
@@ -96,7 +108,8 @@ namespace FileSearch
                     sw.WriteLine(tb_filter.Text);
                 }
             }
-            seeker.AbortSeek();
+            if (seeker.ThreadSeekerIsExist())
+                seeker.AbortSeek();
             base.OnClosing(e);
         }
     }
