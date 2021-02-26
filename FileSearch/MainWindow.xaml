@@ -64,13 +64,13 @@
         <Button Name ="Stop_Button" Content="Остановить" Grid.Column="11" HorizontalAlignment="Left" Grid.Row="1" VerticalAlignment="Top" Width="90" Height="40" Background="#FFA2A2A2"/>
         <TextBox Name ="tb_filter"  Grid.Column="4" HorizontalAlignment="Left" Height="40" TextWrapping="Wrap" VerticalAlignment="Top" Width="300" Grid.Row="1" Grid.ColumnSpan="2" FontSize="16"/>
         <TextBox Name ="tb_start_dir"  Grid.Column="1" HorizontalAlignment="Left" Height="40" TextWrapping="Wrap" VerticalAlignment="Top" Width="290" Grid.Row="1" FontSize="16"/>
-        <TextBlock Grid.Column="1" HorizontalAlignment="Left" Margin="10,0,0,0" Grid.Row="3" TextWrapping="Wrap" Text="Current Directory :" VerticalAlignment="Top" Width="280" Cursor="Help" FontSize="16" Height="21" Grid.RowSpan="2"/>
+        <TextBlock Grid.Column="1" HorizontalAlignment="Left" Grid.Row="3" TextWrapping="Wrap" Text="Current Directory :" VerticalAlignment="Top" Width="290" Cursor="Help" FontSize="16" Height="21" Grid.RowSpan="2"/>
         <TextBlock Grid.Column="4" HorizontalAlignment="Left" Grid.Row="3" Grid.RowSpan="2" TextWrapping="Wrap" Text="Found : " VerticalAlignment="Top" Width="150" Height="21" FontSize="16" Cursor="Help"/>
         <TextBlock Grid.Column="5" HorizontalAlignment="Left" Grid.Row="3" Grid.RowSpan="2" TextWrapping="Wrap" Text="All found : " VerticalAlignment="Top" Width="150" Height="21" FontSize="16" Cursor="Help"/>
         <TextBlock Text="{Binding Path=Found, UpdateSourceTrigger=PropertyChanged}" Name ="tb_found" Grid.Column="4" HorizontalAlignment="Left" Margin="0,1,0,0" Grid.Row="4" Grid.RowSpan="2" TextWrapping="Wrap" VerticalAlignment="Top" Height="30" Width="150" FontSize="20"/>
         <TextBlock Text="{Binding Path=AllFound, UpdateSourceTrigger=PropertyChanged}" Name ="tb_all_found" Grid.Column="5" HorizontalAlignment="Left" Margin="0,1,0,0" Grid.Row="4" TextWrapping="Wrap" VerticalAlignment="Top" RenderTransformOrigin="-0.612,0.313" Width="150" Height="29" FontSize="20"/>
         <TextBlock Text="{Binding Path=CurrentDiretory, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1" HorizontalAlignment="Left" Margin="0,1,0,0" Grid.Row="4" TextWrapping="Wrap" VerticalAlignment="Top" Width="290" Height="29" FontSize="10"/>
         <TextBlock Grid.Column="8" HorizontalAlignment="Left" Grid.Row="3" Grid.RowSpan="2" TextWrapping="Wrap" VerticalAlignment="Top" RenderTransformOrigin="0,0.312" Width="210" Grid.ColumnSpan="4" Height="21" FontSize="16"><Run Text="Spend time :"/><LineBreak/><Run/></TextBlock>
-        <TextBlock Grid.Column="8" HorizontalAlignment="Left" Margin="0,1,0,0" Grid.Row="4" TextWrapping="Wrap" VerticalAlignment="Top" Width="210" Grid.ColumnSpan="4" Height="29" FontSize="14"/>
+        <TextBlock Text="{Binding Path=SpendTime, UpdateSourceTrigger=PropertyChanged}" Grid.Column="8" HorizontalAlignment="Left" Margin="0,1,0,0" Grid.Row="4" TextWrapping="Wrap" VerticalAlignment="Top" Width="210" Grid.ColumnSpan="4" Height="29" FontSize="16"/>
     </Grid>
 </Window>

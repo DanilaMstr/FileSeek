@@ -7,6 +7,7 @@ using System.Threading;
 using System.IO;
 using System.Text.RegularExpressions;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 
 namespace FileSearch
 {
@@ -19,6 +20,8 @@ namespace FileSearch
         private string _format = "[a-zA-z0-9]+";
         private DirectoryNode _startDirectory;
         private string _currDirectory = string.Empty;
+        private Stopwatch _stopWatch = new Stopwatch();
+        private string _spendTime = "";
         public ObservableCollection<TreeNode> treeNodes;
 
         public uint Found 
@@ -46,6 +49,15 @@ namespace FileSearch
             {
                 _currDirectory = value;
                 OnPropertyChanged("CurrentDiretory");
+            }
+        }
+        public string SpendTime
+        {
+            get => _spendTime;
+            set
+            {
+                _spendTime = value;
+                OnPropertyChanged("SpendTime");
             }
         }
         public string Format { set => _format = value; }
@@ -78,15 +90,19 @@ namespace FileSearch
                 _thread.Abort();
             _countFound = 0;
             _allCountFound = 0;
+            _stopWatch = new Stopwatch();
         }
 
         private void Seeking()
         {
+            _stopWatch.Start();
             CheckDirectoris(_startDirectory);
+            _stopWatch.Stop();
         }
 
         private void CheckDirectoris(DirectoryNode directory)
         {
+            SpendTime = _stopWatch.Elapsed.ToString();
             try
             {
                 bool hasFile = CheckFilesOnDir(directory);

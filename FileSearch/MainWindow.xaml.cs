@@ -5,6 +5,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.ComponentModel;
 using System;
+using System.Diagnostics;
 
 namespace FileSearch
 {
