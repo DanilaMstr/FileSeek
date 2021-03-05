@@ -61,7 +61,7 @@ namespace FileSearch
             else
             {
                 seeker.SeekingSet();
-                Stop_Button.Content = "Отсановить";
+                Stop_Button.Content = "Остановить";
                 isStop = true;
             }
             //seeker.SeekingReset();
