@@ -10,7 +10,18 @@ namespace FileSearch
     public abstract class TreeNode : NotifyPropertyChanged
     {
         protected string _nodeName;
+        protected string _nodeFullName;
         protected ObservableCollection<TreeNode> _items;
+
+        public string NodeFullName
+        {
+            get => _nodeFullName;
+            set
+            {
+                _nodeFullName = value;
+                OnPropertyChanged();
+            }
+        }
 
         public string NodeName
         {

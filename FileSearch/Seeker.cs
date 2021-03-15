@@ -140,7 +140,7 @@ namespace FileSearch
                         Found++;
                         App.Current.Dispatcher.Invoke((Action)delegate
                         {
-                            directory.Items.Add(new FileNode { NodeName = file.Name });
+                            directory.Items.Add(new FileNode { NodeName = file.Name, NodeFullName = file.FullName });
                         });
                         hasFiles = true;
                     }

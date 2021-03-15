@@ -40,6 +40,12 @@
                     DataType="{x:Type local:FileNode}" 
                     ItemsSource="{Binding Items}">
                     <StackPanel Orientation="Horizontal">
+                        <StackPanel.ContextMenu>
+                            <ContextMenu>
+                                <MenuItem Header="Copy path" Command="{Binding CopyCommand}"/>
+                                <MenuItem Header="Delete file" Command="{Binding DeleteCommand}"/>
+                            </ContextMenu>
+                        </StackPanel.ContextMenu>
                         <Image Height="16" Margin="0,1,3,1" 
                                Source="\Images\file.png" 
                                Width="16" />

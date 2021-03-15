@@ -7,6 +7,7 @@ using System.ComponentModel;
 using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace FileSearch
 {
@@ -44,12 +45,6 @@ namespace FileSearch
 
         }
 
-        private bool CheckDirExist()
-        {
-            var dirInfo = new DirectoryInfo(tb_start_dir.Text);
-            return dirInfo.Exists;
-        }
-
         private void Stop_Button_Click(object sender, RoutedEventArgs e)
         {
             if (isStop)
@@ -66,6 +61,21 @@ namespace FileSearch
             }
             //seeker.SeekingReset();
 
+        }
+
+        private void RightMouseClick(object sender, MouseEventArgs e)
+        {
+            Console.WriteLine("Press right miuse click");
+            if (e.RightButton == MouseButtonState.Pressed)
+            {
+                Console.WriteLine("Press right miuse click");
+            }
+        }
+
+        private bool CheckDirExist()
+        {
+            var dirInfo = new DirectoryInfo(tb_start_dir.Text);
+            return dirInfo.Exists;
         }
 
         private void StartConfig()

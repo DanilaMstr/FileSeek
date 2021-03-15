@@ -8,8 +8,6 @@ namespace FileSearch
 {
     public class DirectoryNode : TreeNode
     {
-        private string _nodeFullName;
-
         public bool HasFile
         {
             get
@@ -27,18 +25,6 @@ namespace FileSearch
                 return false;
             }
         }
-
-        public string NodeFullName
-        {
-            get => _nodeFullName;
-            set
-            {
-                _nodeFullName = value;
-                OnPropertyChanged();
-            }
-        }
-
-        private bool HasFileOnItems(TreeNode nodes) => nodes.Items.Any(n => n is FileNode);
 
         public DirectoryNode()
         {
