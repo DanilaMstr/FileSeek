@@ -42,7 +42,8 @@
                     <StackPanel Orientation="Horizontal">
                         <StackPanel.ContextMenu>
                             <ContextMenu>
-                                <MenuItem Header="Copy path" Command="{Binding CopyCommand}"/>
+                                <MenuItem Header="Copy path" Command="{Binding CopyFullFilePathCommand}"/>
+                                <MenuItem Header="Copy file name" Command="{Binding CopyFileNameCommand}"/>
                                 <MenuItem Header="Delete file" Command="{Binding DeleteCommand}"/>
                             </ContextMenu>
                         </StackPanel.ContextMenu>

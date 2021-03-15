@@ -10,18 +10,24 @@ namespace FileSearch
 {
     public class FileNode : TreeNode
     {
-        public ICommand CopyCommand { get; }
+        public ICommand CopyFullFilePathCommand { get; }
+        public ICommand CopyFileNameCommand { get; }
         public ICommand DeleteCommand { get; }
         public FileNode() 
         {
             _items = new System.Collections.ObjectModel.ObservableCollection<TreeNode>();
-            CopyCommand = new SimpleCommand(OnCopy);
+            CopyFullFilePathCommand = new SimpleCommand(OnCopyFullFilePath);
+            CopyFileNameCommand = new SimpleCommand(OnCopyFileName);
             DeleteCommand = new SimpleCommand(OnDelete);
         }
 
-        void OnCopy()
+        void OnCopyFullFilePath()
         {
             Clipboard.SetData(DataFormats.Text, (Object)this.NodeFullName); 
+        }
+        void OnCopyFileName()
+        {
+            Clipboard.SetData(DataFormats.Text, (Object)this.NodeName);
         }
         void OnDelete()
         {
